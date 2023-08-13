@@ -1,0 +1,8 @@
+syntax = "proto3";
+package messages;
+option go_package="./admin";
+
+message Page{
+  int32 page = 1;
+  int32 limit = 2;
+}

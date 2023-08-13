@@ -1,0 +1,17 @@
+syntax = "proto3";
+package messages;
+option go_package="./admin";
+
+message LoginReq{
+  string username = 1;
+  string password = 2;
+}
+message LoginReply{
+  int64 user_id = 1;
+}
+message LogoutReq{
+  int64 user_id = 1;
+}
+message LogoutReply{
+  bool is_ok = 1;
+}

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package admin;
+
+import "message/login.proto";
+import "message/user.proto";
+option go_package="./admin";
+
+
+service Admin {
+  // 登录登出
+  rpc Login(messages.LoginReq) returns(messages.LoginReply);
+  rpc Logout(messages.LogoutReq)returns(messages.LogoutReply);
+  // 人员模块
+  rpc UserAdd(messages.UserAddReq)returns(messages.UserAddReply);
+  rpc UserUpdate(messages.UserUpdateReq)returns(messages.UserUpdateReply);
+  rpc UserQuery(messages.UserQueryReq)returns(messages.UserQueryReply);
+  rpc UserList(messages.UserListReq)returns(messages.UserListReply);
+  rpc UserDelete(messages.UserDeleteReq)returns(messages.UserDeleteReply);
+
+}
+
+

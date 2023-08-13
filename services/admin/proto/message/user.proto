@@ -1,0 +1,87 @@
+syntax = "proto3";
+package messages;
+option go_package="./admin";
+import "message/common.proto";
+
+
+// 用户新增
+message UserAddReq {
+  string username = 1;
+  string password = 2;
+  string avatar = 3;
+  string introduction = 4;
+  int32 role_id = 5;
+}
+message UserAddReply{
+  int64 id = 1;
+}
+
+
+// 用户更新
+message UserUpdateReq{
+  int64 id = 1;
+  string username = 2;
+  string password = 3;
+  string avatar = 4;
+  string introduction = 5;
+  int32 role_id = 6;
+  int32 status = 7;
+}
+
+message UserUpdateReply{
+  int64 id = 1;
+  string username = 2;
+  string avatar = 3;
+  string introduction = 4;
+  int32 role_id = 5;
+  string role_name = 6;
+  int32 status = 7;
+}
+
+
+// 根据id/username 查询用户
+message UserQueryReq{
+  int64 id = 1;
+  string username = 2;
+}
+message UserQueryReply{
+  int64 id = 1;
+  string username = 2;
+  string avatar = 3;
+  string introduction = 4;
+  int32 role_id = 5;
+  string role_name = 6;
+  int32 status = 7;
+}
+
+
+// 删除用户
+message UserDeleteReq{
+  int64 id = 1;
+  string username = 2;
+}
+
+message UserDeleteReply{
+  bool isOk = 1;
+}
+
+//获取人员列表
+message UserListReq{
+  string username = 2;
+  int32 role_id = 3;
+  int32 status = 4;
+  Page page = 5;
+}
+message UserListReply{
+  message detail{
+    int64 id = 1;
+    string username = 2;
+    string avatar = 3;
+    string introduction = 4;
+    int32 role_id = 5;
+    string role_name = 6;
+    int32 status = 7;
+  }
+  int64 total = 1;
+  repeated detail data = 2;
+}

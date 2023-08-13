@@ -1,0 +1,60 @@
+version: "3"
+services:
+  consul:
+    image: consul
+    container_name: consul
+    ports:
+      - 8500:8500
+    environment:
+      - CONSUL_BIND_INTERFACE=eth0
+      - TZ=Asia/Shanghai
+    command: ["agent" ,"-dev", "-ui","-config-dir=../consul/config", "-client=0.0.0.0"]
+    volumes:
+      - ../consul/config:/consul/config
+  nacos:
+    image: nacos/nacos-server
+    container_name: nacos
+    environment:
+      - MODE=standalone
+      - NACOS_AUTH_ENABLE=true
+      - JVM_XMS=256m
+      - JVM_XMX=256m
+      - JVM_XMN=128m
+      - TZ=Asia/Shanghai
+    ports:
+      - 8848:8848
+      - 9848:9848
+  jaeger:
+    image: jaegertracing/all-in-one:1.47
+    container_name: jaeger
+    environment:
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+      - COLLECTOR_OTLP_ENABLED=true
+      - TZ=Asia/Shanghai
+    ports:
+      - 6831:6831/udp
+      - 6832:6832/udp
+      - 5778:5778
+      - 16686:16686
+      - 4317:4317
+      - 4318:4318
+      - 14250:14250
+      - 14268:14268
+      - 14269:14269
+      - 9411:9411
+  prometheus:
+    image: bitnami/prometheus
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ../prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    environment:
+      - TZ=Asia/Shanghai
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    environment:
+      - TZ=Asia/Shanghai
