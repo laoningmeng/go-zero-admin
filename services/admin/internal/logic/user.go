@@ -9,21 +9,23 @@ import (
 
 // User 这里是逻辑层的User， 跟orm中是有区别的
 type User struct {
-	Id           int64
-	Username     string // 用户名
-	Password     string // 密码
-	Avatar       string // 头像
-	Introduction string // 个人介绍
-	RoleId       int32  // 角色id
-	Status       int32  // 0-待激活1-已入职-2-离职中3-已离职
-	RoleName     string
+	Id             int64
+	Username       string // 用户名
+	Password       string // 密码
+	Avatar         string // 头像
+	Introduction   string // 个人介绍
+	RoleId         int32  // 角色id
+	Status         int32  // 0-待激活1-已入职-2-离职中3-已离职
+	RoleName       string
+	DepartmentName string
+	DepartmentId   int32
 }
 
 type UserRepo interface {
 	FindOne(context.Context, *User) (*User, error)
 	TableName() string
 	Add(ctx context.Context, user *User) (int64, error)
-	Update(ctx context.Context, user *User) (*User, error)
+	Update(ctx context.Context, user *User) (bool, error)
 	Delete(ctx context.Context, user *User) (bool, error)
 	List(ctx context.Context, filter *User, pageNum, pageSize int) ([]*User, int64, error)
 }
@@ -61,7 +63,7 @@ func (u *UserLogic) UserQuery(ctx context.Context, user *User) (*User, error) {
 func (u *UserLogic) UserAdd(ctx context.Context, user *User) (int64, error) {
 	return u.data.Add(ctx, user)
 }
-func (u *UserLogic) UserUpdate(ctx context.Context, user *User) (*User, error) {
+func (u *UserLogic) UserUpdate(ctx context.Context, user *User) (bool, error) {
 	return u.data.Update(ctx, user)
 }
 

@@ -11,6 +11,7 @@ message UserAddReq {
   string avatar = 3;
   string introduction = 4;
   int32 role_id = 5;
+  int32 department_id = 6;
 }
 message UserAddReply{
   int64 id = 1;
@@ -26,16 +27,11 @@ message UserUpdateReq{
   string introduction = 5;
   int32 role_id = 6;
   int32 status = 7;
+  int32 department_id = 8;
 }
 
 message UserUpdateReply{
-  int64 id = 1;
-  string username = 2;
-  string avatar = 3;
-  string introduction = 4;
-  int32 role_id = 5;
-  string role_name = 6;
-  int32 status = 7;
+  bool isOk = 1;
 }
 
 
@@ -52,6 +48,8 @@ message UserQueryReply{
   int32 role_id = 5;
   string role_name = 6;
   int32 status = 7;
+  string department_name=8;
+  int32 department_id = 9;
 }
 
 
@@ -70,7 +68,8 @@ message UserListReq{
   string username = 2;
   int32 role_id = 3;
   int32 status = 4;
-  Page page = 5;
+  int32 department_id = 5;
+  messages.Page page = 6;
 }
 message UserListReply{
   message detail{
@@ -81,6 +80,8 @@ message UserListReply{
     int32 role_id = 5;
     string role_name = 6;
     int32 status = 7;
+    int32 department_id = 8;
+    string department = 9;
   }
   int64 total = 1;
   repeated detail data = 2;

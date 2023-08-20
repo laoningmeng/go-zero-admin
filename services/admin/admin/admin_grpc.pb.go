@@ -26,6 +26,11 @@ const (
 	Admin_UserQuery_FullMethodName  = "/admin.Admin/UserQuery"
 	Admin_UserList_FullMethodName   = "/admin.Admin/UserList"
 	Admin_UserDelete_FullMethodName = "/admin.Admin/UserDelete"
+	Admin_RoleAdd_FullMethodName    = "/admin.Admin/RoleAdd"
+	Admin_RoleUpdate_FullMethodName = "/admin.Admin/RoleUpdate"
+	Admin_RoleQuery_FullMethodName  = "/admin.Admin/RoleQuery"
+	Admin_RoleList_FullMethodName   = "/admin.Admin/RoleList"
+	Admin_RoleDelete_FullMethodName = "/admin.Admin/RoleDelete"
 )
 
 // AdminClient is the client API for Admin service.
@@ -41,6 +46,12 @@ type AdminClient interface {
 	UserQuery(ctx context.Context, in *UserQueryReq, opts ...grpc.CallOption) (*UserQueryReply, error)
 	UserList(ctx context.Context, in *UserListReq, opts ...grpc.CallOption) (*UserListReply, error)
 	UserDelete(ctx context.Context, in *UserDeleteReq, opts ...grpc.CallOption) (*UserDeleteReply, error)
+	// 角色管理模块
+	RoleAdd(ctx context.Context, in *RoleAddReq, opts ...grpc.CallOption) (*RoleAddReply, error)
+	RoleUpdate(ctx context.Context, in *RoleUpdateReq, opts ...grpc.CallOption) (*RoleUpdateReply, error)
+	RoleQuery(ctx context.Context, in *RoleQueryReq, opts ...grpc.CallOption) (*RoleQueryReply, error)
+	RoleList(ctx context.Context, in *RoleListReq, opts ...grpc.CallOption) (*RoleListReply, error)
+	RoleDelete(ctx context.Context, in *RoleDeleteReq, opts ...grpc.CallOption) (*RoleDeleteReply, error)
 }
 
 type adminClient struct {
@@ -114,6 +125,51 @@ func (c *adminClient) UserDelete(ctx context.Context, in *UserDeleteReq, opts ..
 	return out, nil
 }
 
+func (c *adminClient) RoleAdd(ctx context.Context, in *RoleAddReq, opts ...grpc.CallOption) (*RoleAddReply, error) {
+	out := new(RoleAddReply)
+	err := c.cc.Invoke(ctx, Admin_RoleAdd_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminClient) RoleUpdate(ctx context.Context, in *RoleUpdateReq, opts ...grpc.CallOption) (*RoleUpdateReply, error) {
+	out := new(RoleUpdateReply)
+	err := c.cc.Invoke(ctx, Admin_RoleUpdate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminClient) RoleQuery(ctx context.Context, in *RoleQueryReq, opts ...grpc.CallOption) (*RoleQueryReply, error) {
+	out := new(RoleQueryReply)
+	err := c.cc.Invoke(ctx, Admin_RoleQuery_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminClient) RoleList(ctx context.Context, in *RoleListReq, opts ...grpc.CallOption) (*RoleListReply, error) {
+	out := new(RoleListReply)
+	err := c.cc.Invoke(ctx, Admin_RoleList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminClient) RoleDelete(ctx context.Context, in *RoleDeleteReq, opts ...grpc.CallOption) (*RoleDeleteReply, error) {
+	out := new(RoleDeleteReply)
+	err := c.cc.Invoke(ctx, Admin_RoleDelete_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AdminServer is the server API for Admin service.
 // All implementations must embed UnimplementedAdminServer
 // for forward compatibility
@@ -127,6 +183,12 @@ type AdminServer interface {
 	UserQuery(context.Context, *UserQueryReq) (*UserQueryReply, error)
 	UserList(context.Context, *UserListReq) (*UserListReply, error)
 	UserDelete(context.Context, *UserDeleteReq) (*UserDeleteReply, error)
+	// 角色管理模块
+	RoleAdd(context.Context, *RoleAddReq) (*RoleAddReply, error)
+	RoleUpdate(context.Context, *RoleUpdateReq) (*RoleUpdateReply, error)
+	RoleQuery(context.Context, *RoleQueryReq) (*RoleQueryReply, error)
+	RoleList(context.Context, *RoleListReq) (*RoleListReply, error)
+	RoleDelete(context.Context, *RoleDeleteReq) (*RoleDeleteReply, error)
 	mustEmbedUnimplementedAdminServer()
 }
 
@@ -154,6 +216,21 @@ func (UnimplementedAdminServer) UserList(context.Context, *UserListReq) (*UserLi
 }
 func (UnimplementedAdminServer) UserDelete(context.Context, *UserDeleteReq) (*UserDeleteReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserDelete not implemented")
+}
+func (UnimplementedAdminServer) RoleAdd(context.Context, *RoleAddReq) (*RoleAddReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RoleAdd not implemented")
+}
+func (UnimplementedAdminServer) RoleUpdate(context.Context, *RoleUpdateReq) (*RoleUpdateReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RoleUpdate not implemented")
+}
+func (UnimplementedAdminServer) RoleQuery(context.Context, *RoleQueryReq) (*RoleQueryReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RoleQuery not implemented")
+}
+func (UnimplementedAdminServer) RoleList(context.Context, *RoleListReq) (*RoleListReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RoleList not implemented")
+}
+func (UnimplementedAdminServer) RoleDelete(context.Context, *RoleDeleteReq) (*RoleDeleteReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RoleDelete not implemented")
 }
 func (UnimplementedAdminServer) mustEmbedUnimplementedAdminServer() {}
 
@@ -294,6 +371,96 @@ func _Admin_UserDelete_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Admin_RoleAdd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RoleAddReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServer).RoleAdd(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Admin_RoleAdd_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServer).RoleAdd(ctx, req.(*RoleAddReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Admin_RoleUpdate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RoleUpdateReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServer).RoleUpdate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Admin_RoleUpdate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServer).RoleUpdate(ctx, req.(*RoleUpdateReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Admin_RoleQuery_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RoleQueryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServer).RoleQuery(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Admin_RoleQuery_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServer).RoleQuery(ctx, req.(*RoleQueryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Admin_RoleList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RoleListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServer).RoleList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Admin_RoleList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServer).RoleList(ctx, req.(*RoleListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Admin_RoleDelete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RoleDeleteReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServer).RoleDelete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Admin_RoleDelete_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServer).RoleDelete(ctx, req.(*RoleDeleteReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Admin_ServiceDesc is the grpc.ServiceDesc for Admin service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -328,6 +495,26 @@ var Admin_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserDelete",
 			Handler:    _Admin_UserDelete_Handler,
+		},
+		{
+			MethodName: "RoleAdd",
+			Handler:    _Admin_RoleAdd_Handler,
+		},
+		{
+			MethodName: "RoleUpdate",
+			Handler:    _Admin_RoleUpdate_Handler,
+		},
+		{
+			MethodName: "RoleQuery",
+			Handler:    _Admin_RoleQuery_Handler,
+		},
+		{
+			MethodName: "RoleList",
+			Handler:    _Admin_RoleList_Handler,
+		},
+		{
+			MethodName: "RoleDelete",
+			Handler:    _Admin_RoleDelete_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

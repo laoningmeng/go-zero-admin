@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
+	sync "sync"
 )
 
 const (
@@ -19,22 +20,713 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 用户新增
+type RoleAddReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+}
+
+func (x *RoleAddReq) Reset() {
+	*x = RoleAddReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_role_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RoleAddReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RoleAddReq) ProtoMessage() {}
+
+func (x *RoleAddReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_role_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RoleAddReq.ProtoReflect.Descriptor instead.
+func (*RoleAddReq) Descriptor() ([]byte, []int) {
+	return file_message_role_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *RoleAddReq) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+type RoleAddReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *RoleAddReply) Reset() {
+	*x = RoleAddReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_role_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RoleAddReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RoleAddReply) ProtoMessage() {}
+
+func (x *RoleAddReply) ProtoReflect() protoreflect.Message {
+	mi := &file_message_role_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RoleAddReply.ProtoReflect.Descriptor instead.
+func (*RoleAddReply) Descriptor() ([]byte, []int) {
+	return file_message_role_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *RoleAddReply) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// 角色更新
+type RoleUpdateReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id     int64  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name   string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Status int32  `protobuf:"varint,3,opt,name=status,proto3" json:"status,omitempty"`
+}
+
+func (x *RoleUpdateReq) Reset() {
+	*x = RoleUpdateReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_role_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RoleUpdateReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RoleUpdateReq) ProtoMessage() {}
+
+func (x *RoleUpdateReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_role_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RoleUpdateReq.ProtoReflect.Descriptor instead.
+func (*RoleUpdateReq) Descriptor() ([]byte, []int) {
+	return file_message_role_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *RoleUpdateReq) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *RoleUpdateReq) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *RoleUpdateReq) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+type RoleUpdateReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	IsOk bool `protobuf:"varint,1,opt,name=isOk,proto3" json:"isOk,omitempty"`
+}
+
+func (x *RoleUpdateReply) Reset() {
+	*x = RoleUpdateReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_role_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RoleUpdateReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RoleUpdateReply) ProtoMessage() {}
+
+func (x *RoleUpdateReply) ProtoReflect() protoreflect.Message {
+	mi := &file_message_role_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RoleUpdateReply.ProtoReflect.Descriptor instead.
+func (*RoleUpdateReply) Descriptor() ([]byte, []int) {
+	return file_message_role_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *RoleUpdateReply) GetIsOk() bool {
+	if x != nil {
+		return x.IsOk
+	}
+	return false
+}
+
+// 根据id/username 查询角色
+type RoleQueryReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id   int64  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+}
+
+func (x *RoleQueryReq) Reset() {
+	*x = RoleQueryReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_role_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RoleQueryReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RoleQueryReq) ProtoMessage() {}
+
+func (x *RoleQueryReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_role_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RoleQueryReq.ProtoReflect.Descriptor instead.
+func (*RoleQueryReq) Descriptor() ([]byte, []int) {
+	return file_message_role_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *RoleQueryReq) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *RoleQueryReq) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+type RoleQueryReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id     int64  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name   string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Status int32  `protobuf:"varint,3,opt,name=status,proto3" json:"status,omitempty"`
+}
+
+func (x *RoleQueryReply) Reset() {
+	*x = RoleQueryReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_role_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RoleQueryReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RoleQueryReply) ProtoMessage() {}
+
+func (x *RoleQueryReply) ProtoReflect() protoreflect.Message {
+	mi := &file_message_role_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RoleQueryReply.ProtoReflect.Descriptor instead.
+func (*RoleQueryReply) Descriptor() ([]byte, []int) {
+	return file_message_role_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *RoleQueryReply) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *RoleQueryReply) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *RoleQueryReply) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+// 删除用户
+type RoleDeleteReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *RoleDeleteReq) Reset() {
+	*x = RoleDeleteReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_role_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RoleDeleteReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RoleDeleteReq) ProtoMessage() {}
+
+func (x *RoleDeleteReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_role_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RoleDeleteReq.ProtoReflect.Descriptor instead.
+func (*RoleDeleteReq) Descriptor() ([]byte, []int) {
+	return file_message_role_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *RoleDeleteReq) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type RoleDeleteReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	IsOk bool `protobuf:"varint,1,opt,name=isOk,proto3" json:"isOk,omitempty"`
+}
+
+func (x *RoleDeleteReply) Reset() {
+	*x = RoleDeleteReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_role_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RoleDeleteReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RoleDeleteReply) ProtoMessage() {}
+
+func (x *RoleDeleteReply) ProtoReflect() protoreflect.Message {
+	mi := &file_message_role_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RoleDeleteReply.ProtoReflect.Descriptor instead.
+func (*RoleDeleteReply) Descriptor() ([]byte, []int) {
+	return file_message_role_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *RoleDeleteReply) GetIsOk() bool {
+	if x != nil {
+		return x.IsOk
+	}
+	return false
+}
+
+// 获取人员列表
+type RoleListReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name   int32 `protobuf:"varint,1,opt,name=name,proto3" json:"name,omitempty"`
+	Status int32 `protobuf:"varint,2,opt,name=status,proto3" json:"status,omitempty"`
+	Page   *Page `protobuf:"bytes,3,opt,name=page,proto3" json:"page,omitempty"`
+}
+
+func (x *RoleListReq) Reset() {
+	*x = RoleListReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_role_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RoleListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RoleListReq) ProtoMessage() {}
+
+func (x *RoleListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_role_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RoleListReq.ProtoReflect.Descriptor instead.
+func (*RoleListReq) Descriptor() ([]byte, []int) {
+	return file_message_role_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *RoleListReq) GetName() int32 {
+	if x != nil {
+		return x.Name
+	}
+	return 0
+}
+
+func (x *RoleListReq) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (x *RoleListReq) GetPage() *Page {
+	if x != nil {
+		return x.Page
+	}
+	return nil
+}
+
+type RoleListReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Total int64                `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
+	Data  []*RoleListReplyItem `protobuf:"bytes,2,rep,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *RoleListReply) Reset() {
+	*x = RoleListReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_role_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RoleListReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RoleListReply) ProtoMessage() {}
+
+func (x *RoleListReply) ProtoReflect() protoreflect.Message {
+	mi := &file_message_role_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RoleListReply.ProtoReflect.Descriptor instead.
+func (*RoleListReply) Descriptor() ([]byte, []int) {
+	return file_message_role_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *RoleListReply) GetTotal() int64 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *RoleListReply) GetData() []*RoleListReplyItem {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type RoleListReplyItem struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id        int64  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name      string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Status    string `protobuf:"bytes,3,opt,name=status,proto3" json:"status,omitempty"`
+	CreatedAt int64  `protobuf:"varint,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt int64  `protobuf:"varint,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+}
+
+func (x *RoleListReplyItem) Reset() {
+	*x = RoleListReplyItem{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_role_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RoleListReplyItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RoleListReplyItem) ProtoMessage() {}
+
+func (x *RoleListReplyItem) ProtoReflect() protoreflect.Message {
+	mi := &file_message_role_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RoleListReplyItem.ProtoReflect.Descriptor instead.
+func (*RoleListReplyItem) Descriptor() ([]byte, []int) {
+	return file_message_role_proto_rawDescGZIP(), []int{9, 0}
+}
+
+func (x *RoleListReplyItem) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *RoleListReplyItem) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *RoleListReplyItem) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *RoleListReplyItem) GetCreatedAt() int64 {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return 0
+}
+
+func (x *RoleListReplyItem) GetUpdatedAt() int64 {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return 0
+}
+
 var File_message_role_proto protoreflect.FileDescriptor
 
 var file_message_role_proto_rawDesc = []byte{
 	0x0a, 0x12, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2f, 0x72, 0x6f, 0x6c, 0x65, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x12, 0x08, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x73, 0x42, 0x09,
-	0x5a, 0x07, 0x2e, 0x2f, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x72, 0x6f, 0x74, 0x6f, 0x12, 0x08, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x73, 0x1a, 0x14,
+	0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x22, 0x20, 0x0a, 0x0a, 0x52, 0x6f, 0x6c, 0x65, 0x41, 0x64, 0x64, 0x52,
+	0x65, 0x71, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x1e, 0x0a, 0x0c, 0x52, 0x6f, 0x6c, 0x65, 0x41, 0x64,
+	0x64, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x4b, 0x0a, 0x0d, 0x52, 0x6f, 0x6c, 0x65, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73,
+	0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61,
+	0x74, 0x75, 0x73, 0x22, 0x25, 0x0a, 0x0f, 0x52, 0x6f, 0x6c, 0x65, 0x55, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x12, 0x0a, 0x04, 0x69, 0x73, 0x4f, 0x6b, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x08, 0x52, 0x04, 0x69, 0x73, 0x4f, 0x6b, 0x22, 0x32, 0x0a, 0x0c, 0x52, 0x6f,
+	0x6c, 0x65, 0x51, 0x75, 0x65, 0x72, 0x79, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61,
+	0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x4c,
+	0x0a, 0x0e, 0x52, 0x6f, 0x6c, 0x65, 0x51, 0x75, 0x65, 0x72, 0x79, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64,
+	0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
+	0x6e, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0x1f, 0x0a, 0x0d,
+	0x52, 0x6f, 0x6c, 0x65, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a,
+	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x25, 0x0a,
+	0x0f, 0x52, 0x6f, 0x6c, 0x65, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x12, 0x12, 0x0a, 0x04, 0x69, 0x73, 0x4f, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x04,
+	0x69, 0x73, 0x4f, 0x6b, 0x22, 0x5d, 0x0a, 0x0b, 0x52, 0x6f, 0x6c, 0x65, 0x4c, 0x69, 0x73, 0x74,
+	0x52, 0x65, 0x71, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75,
+	0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12,
+	0x22, 0x0a, 0x04, 0x70, 0x61, 0x67, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e,
+	0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x73, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x52, 0x04, 0x70,
+	0x61, 0x67, 0x65, 0x22, 0xda, 0x01, 0x0a, 0x0d, 0x52, 0x6f, 0x6c, 0x65, 0x4c, 0x69, 0x73, 0x74,
+	0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x12, 0x30, 0x0a, 0x04, 0x64,
+	0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x6d, 0x65, 0x73, 0x73,
+	0x61, 0x67, 0x65, 0x73, 0x2e, 0x52, 0x6f, 0x6c, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70,
+	0x6c, 0x79, 0x2e, 0x69, 0x74, 0x65, 0x6d, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x1a, 0x80, 0x01,
+	0x0a, 0x04, 0x69, 0x74, 0x65, 0x6d, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74,
+	0x61, 0x74, 0x75, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74,
+	0x75, 0x73, 0x12, 0x1d, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74,
+	0x18, 0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41,
+	0x74, 0x12, 0x1d, 0x0a, 0x0a, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18,
+	0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74,
+	0x42, 0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
-var file_message_role_proto_goTypes = []interface{}{}
+var (
+	file_message_role_proto_rawDescOnce sync.Once
+	file_message_role_proto_rawDescData = file_message_role_proto_rawDesc
+)
+
+func file_message_role_proto_rawDescGZIP() []byte {
+	file_message_role_proto_rawDescOnce.Do(func() {
+		file_message_role_proto_rawDescData = protoimpl.X.CompressGZIP(file_message_role_proto_rawDescData)
+	})
+	return file_message_role_proto_rawDescData
+}
+
+var file_message_role_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_message_role_proto_goTypes = []interface{}{
+	(*RoleAddReq)(nil),        // 0: messages.RoleAddReq
+	(*RoleAddReply)(nil),      // 1: messages.RoleAddReply
+	(*RoleUpdateReq)(nil),     // 2: messages.RoleUpdateReq
+	(*RoleUpdateReply)(nil),   // 3: messages.RoleUpdateReply
+	(*RoleQueryReq)(nil),      // 4: messages.RoleQueryReq
+	(*RoleQueryReply)(nil),    // 5: messages.RoleQueryReply
+	(*RoleDeleteReq)(nil),     // 6: messages.RoleDeleteReq
+	(*RoleDeleteReply)(nil),   // 7: messages.RoleDeleteReply
+	(*RoleListReq)(nil),       // 8: messages.RoleListReq
+	(*RoleListReply)(nil),     // 9: messages.RoleListReply
+	(*RoleListReplyItem)(nil), // 10: messages.RoleListReply.item
+	(*Page)(nil),              // 11: messages.Page
+}
 var file_message_role_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	11, // 0: messages.RoleListReq.page:type_name -> messages.Page
+	10, // 1: messages.RoleListReply.data:type_name -> messages.RoleListReply.item
+	2,  // [2:2] is the sub-list for method output_type
+	2,  // [2:2] is the sub-list for method input_type
+	2,  // [2:2] is the sub-list for extension type_name
+	2,  // [2:2] is the sub-list for extension extendee
+	0,  // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_message_role_proto_init() }
@@ -42,18 +734,154 @@ func file_message_role_proto_init() {
 	if File_message_role_proto != nil {
 		return
 	}
+	file_message_common_proto_init()
+	if !protoimpl.UnsafeEnabled {
+		file_message_role_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RoleAddReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_role_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RoleAddReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_role_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RoleUpdateReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_role_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RoleUpdateReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_role_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RoleQueryReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_role_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RoleQueryReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_role_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RoleDeleteReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_role_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RoleDeleteReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_role_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RoleListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_role_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RoleListReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_role_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RoleListReplyItem); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_message_role_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   0,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_message_role_proto_goTypes,
 		DependencyIndexes: file_message_role_proto_depIdxs,
+		MessageInfos:      file_message_role_proto_msgTypes,
 	}.Build()
 	File_message_role_proto = out.File
 	file_message_role_proto_rawDesc = nil
