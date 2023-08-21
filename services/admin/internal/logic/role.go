@@ -3,14 +3,18 @@ package logic
 import (
 	"context"
 	"github.com/laoningmeng/go-zero-admin/common/logger"
+	"time"
 )
 
 // User 这里是逻辑层的User， 跟orm中是有区别的
 type Role struct {
-	Id     int32
-	Name   string // 用户名
-	Title  string // title
-	Status int32  // 0-待激活1-已入职-2-离职中3-已离职
+	Id        int32
+	Name      string // 用户名
+	Title     string // title
+	Status    int32  // 0-待激活1-已入职-2-离职中3-已离职
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt *time.Time
 }
 
 type RoleRepo interface {
@@ -19,7 +23,7 @@ type RoleRepo interface {
 	Add(ctx context.Context, user *Role) (int32, error)
 	Update(ctx context.Context, user *Role) (bool, error)
 	Delete(ctx context.Context, user *Role) (bool, error)
-	List(ctx context.Context, filter *Role, pageNum, pageSize int) ([]*Role, int64, error)
+	List(ctx context.Context, filter *Role, pageNum, pageSize int) ([]*Role, int32, error)
 }
 
 type RoleLogic struct {
@@ -45,9 +49,9 @@ func (r *RoleLogic) RoleUpdate(ctx context.Context, role *Role) (bool, error) {
 	return r.data.Update(ctx, role)
 }
 
-func (r *RoleLogic) RoleList(ctx context.Context, filter *Role, pageNum, pageSize int) ([]*Role, int64, error) {
+func (r *RoleLogic) RoleList(ctx context.Context, filter *Role, pageNum, pageSize int) ([]*Role, int32, error) {
 	return r.data.List(ctx, filter, pageNum, pageSize)
 }
-func (r *RoleLogic) UserDelete(ctx context.Context, user *Role) (bool, error) {
+func (r *RoleLogic) RoleDelete(ctx context.Context, user *Role) (bool, error) {
 	return r.data.Delete(ctx, user)
 }

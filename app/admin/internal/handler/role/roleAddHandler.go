@@ -10,12 +10,12 @@ import (
 
 func AddHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.UserAddReq
+		var req types.RoleAddReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
-		l := logic.NewUserLogic(r.Context(), svcCtx)
+		l := logic.NewRoleLogic(r.Context(), svcCtx)
 		resp, err := l.Add(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)

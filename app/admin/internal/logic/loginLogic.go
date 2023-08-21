@@ -25,7 +25,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 }
 
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
-	loginReply, err := l.svcCtx.UserRpc.Login(l.ctx, &admin.LoginReq{
+	loginReply, err := l.svcCtx.Rpc.Login(l.ctx, &admin.LoginReq{
 		Username: req.Username,
 		Password: req.Password,
 	})

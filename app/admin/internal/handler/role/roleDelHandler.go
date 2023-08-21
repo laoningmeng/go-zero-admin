@@ -10,12 +10,12 @@ import (
 
 func DelHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.UserDelReq
+		var req types.RoleDelReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
-		l := logic.NewUserLogic(r.Context(), svcCtx)
+		l := logic.NewRoleLogic(r.Context(), svcCtx)
 		resp, err := l.Del(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)

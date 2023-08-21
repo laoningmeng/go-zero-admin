@@ -8,14 +8,13 @@ import (
 )
 
 type ServiceContext struct {
-	Config  config.Config
-	UserRpc admin.AdminClient
+	Config config.Config
+	Rpc    admin.AdminClient
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
-
 	return &ServiceContext{
-		Config:  c,
-		UserRpc: adminclient.NewAdmin(zrpc.MustNewClient(c.AdminConf)),
+		Config: c,
+		Rpc:    adminclient.NewAdmin(zrpc.MustNewClient(c.AdminConf)),
 	}
 }

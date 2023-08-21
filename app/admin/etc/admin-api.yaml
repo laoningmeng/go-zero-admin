@@ -1,7 +1,7 @@
 Name: admin-api
 Host: 0.0.0.0
 Port: 8888
-Timeout: 3000
+Timeout: 30000
 
 Prometheus:
   Host: 0.0.0.0
@@ -16,6 +16,7 @@ AdminConf:
   Endpoints:
     - 127.0.0.1:8081
   NonBlock: true
+
 #  Target: consul://127.0.0.1:8500/admin.rpc?wait=14s&token=5b1496a6-e661-8286-de99-c46378d2f55b
 
 JwtAuth:

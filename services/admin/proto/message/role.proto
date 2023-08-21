@@ -8,17 +8,20 @@ import "message/common.proto";
 // 用户新增
 message RoleAddReq {
   string name = 1;
+  string title = 2;
+  int32 status = 3;
 }
 message RoleAddReply{
-  int64 id = 1;
+  int32 id = 1;
 }
 
 
 // 角色更新
 message RoleUpdateReq{
-  int64 id = 1;
+  int32 id = 1;
   string name = 2;
-  int32 status = 3;
+  string title = 3;
+  int32 status = 4;
 }
 
 message RoleUpdateReply{
@@ -28,19 +31,22 @@ message RoleUpdateReply{
 
 // 根据id/username 查询角色
 message RoleQueryReq{
-  int64 id = 1;
+  int32 id = 1;
   string name = 2;
+  string title = 3;
+  int32 status = 4;
 }
 message RoleQueryReply{
-  int64 id = 1;
+  int32 id = 1;
   string name = 2;
-  int32 status = 3;
+  string title = 3;
+  int32 status = 4;
 }
 
 
 // 删除用户
 message RoleDeleteReq{
-  int64 id = 1;
+  int32 id = 1;
 }
 
 message RoleDeleteReply{
@@ -49,18 +55,20 @@ message RoleDeleteReply{
 
 //获取人员列表
 message RoleListReq{
-  int32 name = 1;
+  string name = 1;
   int32 status = 2;
-  messages.Page page = 3;
+  string title = 3;
+  messages.Page page = 4;
 }
 message RoleListReply{
   message item{
-    int64 id = 1;
+    int32 id = 1;
     string name = 2;
-    string status = 3;
-    int64 created_at = 4;
-    int64 updated_at = 5;
+    string title = 3;
+    int32 status = 4;
+    int64 created_at = 5;
+    int64 updated_at = 6;
   }
-  int64 total = 1;
+  int32 total = 1;
   repeated item data = 2;
 }

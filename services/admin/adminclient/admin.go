@@ -21,6 +21,12 @@ type (
 		UserQuery(ctx context.Context, in *admin.UserQueryReq, opts ...grpc.CallOption) (*admin.UserQueryReply, error)
 		UserList(ctx context.Context, in *admin.UserListReq, opts ...grpc.CallOption) (*admin.UserListReply, error)
 		UserDelete(ctx context.Context, in *admin.UserDeleteReq, opts ...grpc.CallOption) (*admin.UserDeleteReply, error)
+		//角色管理
+		RoleAdd(ctx context.Context, in *admin.RoleAddReq, opts ...grpc.CallOption) (*admin.RoleAddReply, error)
+		RoleUpdate(ctx context.Context, in *admin.RoleUpdateReq, opts ...grpc.CallOption) (*admin.RoleUpdateReply, error)
+		RoleQuery(ctx context.Context, in *admin.RoleQueryReq, opts ...grpc.CallOption) (*admin.RoleQueryReply, error)
+		RoleList(ctx context.Context, in *admin.RoleListReq, opts ...grpc.CallOption) (*admin.RoleListReply, error)
+		RoleDelete(ctx context.Context, in *admin.RoleDeleteReq, opts ...grpc.CallOption) (*admin.RoleDeleteReply, error)
 	}
 
 	defaultAdmin struct {
@@ -34,37 +40,62 @@ func NewAdmin(cli zrpc.Client) Admin {
 	}
 }
 
-func (m *defaultAdmin) Login(ctx context.Context, in *admin.LoginReq, opts ...grpc.CallOption) (*admin.LoginReply, error){
+func (m *defaultAdmin) Login(ctx context.Context, in *admin.LoginReq, opts ...grpc.CallOption) (*admin.LoginReply, error) {
 	client := admin.NewAdminClient(m.cli.Conn())
 	return client.Login(ctx, in, opts...)
 }
 
-func (m *defaultAdmin) Logout(ctx context.Context, in *admin.LogoutReq, opts ...grpc.CallOption) (*admin.LogoutReply, error){
+func (m *defaultAdmin) Logout(ctx context.Context, in *admin.LogoutReq, opts ...grpc.CallOption) (*admin.LogoutReply, error) {
 	client := admin.NewAdminClient(m.cli.Conn())
-	return client.Logout(ctx,in, opts...)
+	return client.Logout(ctx, in, opts...)
 }
 
-func (m *defaultAdmin) UserAdd(ctx context.Context, in *admin.UserAddReq, opts ...grpc.CallOption) (*admin.UserAddReply, error){
+func (m *defaultAdmin) UserAdd(ctx context.Context, in *admin.UserAddReq, opts ...grpc.CallOption) (*admin.UserAddReply, error) {
 	client := admin.NewAdminClient(m.cli.Conn())
-	return client.UserAdd(ctx,in, opts...)
+	return client.UserAdd(ctx, in, opts...)
 }
 
-func (m *defaultAdmin) UserUpdate(ctx context.Context, in *admin.UserUpdateReq, opts ...grpc.CallOption) (*admin.UserUpdateReply, error){
+func (m *defaultAdmin) UserUpdate(ctx context.Context, in *admin.UserUpdateReq, opts ...grpc.CallOption) (*admin.UserUpdateReply, error) {
 	client := admin.NewAdminClient(m.cli.Conn())
-	return client.UserUpdate(ctx,in, opts...)
+	return client.UserUpdate(ctx, in, opts...)
 }
 
-func (m *defaultAdmin) UserQuery(ctx context.Context, in *admin.UserQueryReq, opts ...grpc.CallOption) (*admin.UserQueryReply, error){
+func (m *defaultAdmin) UserQuery(ctx context.Context, in *admin.UserQueryReq, opts ...grpc.CallOption) (*admin.UserQueryReply, error) {
 	client := admin.NewAdminClient(m.cli.Conn())
-	return client.UserQuery(ctx,in, opts...)
+	return client.UserQuery(ctx, in, opts...)
 }
 
-func (m *defaultAdmin) UserList(ctx context.Context, in *admin.UserListReq, opts ...grpc.CallOption) (*admin.UserListReply, error){
+func (m *defaultAdmin) UserList(ctx context.Context, in *admin.UserListReq, opts ...grpc.CallOption) (*admin.UserListReply, error) {
 	client := admin.NewAdminClient(m.cli.Conn())
-	return client.UserList(ctx,in, opts...)
+	return client.UserList(ctx, in, opts...)
 }
 
-func (m *defaultAdmin) UserDelete(ctx context.Context, in *admin.UserDeleteReq, opts ...grpc.CallOption) (*admin.UserDeleteReply, error){
+func (m *defaultAdmin) UserDelete(ctx context.Context, in *admin.UserDeleteReq, opts ...grpc.CallOption) (*admin.UserDeleteReply, error) {
 	client := admin.NewAdminClient(m.cli.Conn())
-	return client.UserDelete(ctx,in, opts...)
+	return client.UserDelete(ctx, in, opts...)
+}
+
+func (m *defaultAdmin) RoleAdd(ctx context.Context, in *admin.RoleAddReq, opts ...grpc.CallOption) (*admin.RoleAddReply, error) {
+	client := admin.NewAdminClient(m.cli.Conn())
+	return client.RoleAdd(ctx, in, opts...)
+}
+
+func (m *defaultAdmin) RoleUpdate(ctx context.Context, in *admin.RoleUpdateReq, opts ...grpc.CallOption) (*admin.RoleUpdateReply, error) {
+	client := admin.NewAdminClient(m.cli.Conn())
+	return client.RoleUpdate(ctx, in, opts...)
+}
+
+func (m *defaultAdmin) RoleQuery(ctx context.Context, in *admin.RoleQueryReq, opts ...grpc.CallOption) (*admin.RoleQueryReply, error) {
+	client := admin.NewAdminClient(m.cli.Conn())
+	return client.RoleQuery(ctx, in, opts...)
+}
+
+func (m *defaultAdmin) RoleList(ctx context.Context, in *admin.RoleListReq, opts ...grpc.CallOption) (*admin.RoleListReply, error) {
+	client := admin.NewAdminClient(m.cli.Conn())
+	return client.RoleList(ctx, in, opts...)
+}
+
+func (m *defaultAdmin) RoleDelete(ctx context.Context, in *admin.RoleDeleteReq, opts ...grpc.CallOption) (*admin.RoleDeleteReply, error) {
+	client := admin.NewAdminClient(m.cli.Conn())
+	return client.RoleDelete(ctx, in, opts...)
 }

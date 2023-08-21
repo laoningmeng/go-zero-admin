@@ -30,7 +30,7 @@ func (u *UserLogic) Add(req *types.UserAddReq) (*types.UserAddResp, error) {
 	if err != nil {
 		panic(err)
 	}
-	_, err = u.svcCtx.UserRpc.UserAdd(u.ctx, &data)
+	_, err = u.svcCtx.Rpc.UserAdd(u.ctx, &data)
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func (u *UserLogic) Add(req *types.UserAddReq) (*types.UserAddResp, error) {
 }
 
 func (u *UserLogic) List(req *types.UserListReq) (*types.UserListResp, error) {
-	reply, err := u.svcCtx.UserRpc.UserList(u.ctx, &admin.UserListReq{
+	reply, err := u.svcCtx.Rpc.UserList(u.ctx, &admin.UserListReq{
 		Username:     req.Username,
 		RoleId:       req.RoleId,
 		Status:       req.Status,
@@ -77,7 +77,7 @@ func (u *UserLogic) List(req *types.UserListReq) (*types.UserListResp, error) {
 }
 
 func (u *UserLogic) Update(req *types.UserUpdateReq) (*types.UserUpdateResp, error) {
-	_, err := u.svcCtx.UserRpc.UserUpdate(u.ctx, &admin.UserUpdateReq{
+	_, err := u.svcCtx.Rpc.UserUpdate(u.ctx, &admin.UserUpdateReq{
 		Id:           req.Id,
 		RoleId:       req.RoleId,
 		DepartmentId: req.DepartmentId,
@@ -92,7 +92,7 @@ func (u *UserLogic) Update(req *types.UserUpdateReq) (*types.UserUpdateResp, err
 }
 
 func (u *UserLogic) Del(req *types.UserDelReq) (*types.UserDelResp, error) {
-	_, err := u.svcCtx.UserRpc.UserDelete(u.ctx, &admin.UserDeleteReq{
+	_, err := u.svcCtx.Rpc.UserDelete(u.ctx, &admin.UserDeleteReq{
 		Id: req.Id,
 	})
 	if err != nil {

@@ -1,7 +1,7 @@
 package v1
 
 import (
-	"github.com/laoningmeng/go-zero-admin/app/admin/internal/handler/user"
+	"github.com/laoningmeng/go-zero-admin/app/admin/internal/handler/role"
 	"github.com/laoningmeng/go-zero-admin/app/admin/internal/middleware"
 	"github.com/laoningmeng/go-zero-admin/app/admin/internal/svc"
 	"github.com/zeromicro/go-zero/rest"
@@ -20,22 +20,22 @@ func accessRoleWithToken(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/add",
-					Handler: user.AddHandler(serverCtx),
+					Handler: role.AddHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: user.ListHandler(serverCtx),
+					Handler: role.ListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/del",
-					Handler: user.DelHandler(serverCtx),
+					Handler: role.DelHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/update",
-					Handler: user.UpdateHandler(serverCtx),
+					Handler: role.UpdateHandler(serverCtx),
 				},
 			}...,
 		),

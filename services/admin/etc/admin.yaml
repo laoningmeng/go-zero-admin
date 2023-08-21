@@ -1,5 +1,6 @@
 Name: admin.rpc
 ListenOn: 0.0.0.0:8081
+Timeout: 30000
 #Etcd:
 #  Hosts:
 #  - 127.0.0.1:2379

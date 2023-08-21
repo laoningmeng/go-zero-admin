@@ -3,14 +3,15 @@ package server
 import (
 	"context"
 	"github.com/jinzhu/copier"
+
 	"github.com/laoningmeng/go-zero-admin/services/admin/admin"
 	"github.com/laoningmeng/go-zero-admin/services/admin/internal/logic"
 )
 
 func (s *AdminServer) RoleAdd(ctx context.Context, req *admin.RoleAddReq) (*admin.RoleAddReply, error) {
-	var param *logic.Role
-	_ = copier.Copy(param, req)
-	userId, err := s.r.RoleAdd(ctx, param)
+	var param logic.Role
+	_ = copier.Copy(&param, req)
+	userId, err := s.r.RoleAdd(ctx, &param)
 	if err != nil {
 		return nil, err
 	}
@@ -20,76 +21,73 @@ func (s *AdminServer) RoleAdd(ctx context.Context, req *admin.RoleAddReq) (*admi
 }
 
 func (s *AdminServer) RoleUpdate(ctx context.Context, req *admin.RoleUpdateReq) (*admin.RoleUpdateReply, error) {
-	var param *logic.Role
-	_ = copier.Copy(param, req)
+	var param logic.Role
+	_ = copier.Copy(&param, req)
 
-	role, err := s.r.RoleUpdate(ctx, param)
+	role, err := s.r.RoleUpdate(ctx, &param)
 
 	if err != nil {
 		return nil, err
 	}
-	var resp *admin.RoleUpdateReply
-	_ = copier.Copy(resp, role)
+	var resp admin.RoleUpdateReply
+	_ = copier.Copy(&resp, role)
 
-	return resp, nil
+	return &resp, nil
 }
 
-func (s *AdminServer) RoleQuery(ctx context.Context, req *admin.UserQueryReq) (*admin.UserQueryReply, error) {
-	user, err := s.u.UserQuery(ctx, &logic.User{
-		Id:       0,
-		Username: "",
-	})
+func (s *AdminServer) RoleQuery(ctx context.Context, req *admin.RoleQueryReq) (*admin.RoleQueryReply, error) {
+	var fileter logic.Role
+	err := copier.Copy(&fileter, req)
 	if err != nil {
 		return nil, err
 	}
-	return &admin.UserQueryReply{
-		Id:             user.Id,
-		Username:       user.Username,
-		Avatar:         user.Avatar,
-		Introduction:   user.Introduction,
-		RoleId:         user.RoleId,
-		RoleName:       user.RoleName,
-		Status:         user.Status,
-		DepartmentName: user.DepartmentName,
-		DepartmentId:   user.DepartmentId,
+	user, err := s.r.RoleQuery(ctx, &fileter)
+	if err != nil {
+		return nil, err
+	}
+	var result admin.RoleQueryReply
+	err = copier.Copy(&result, user)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
+
+func (s *AdminServer) RoleList(ctx context.Context, req *admin.RoleListReq) (*admin.RoleListReply, error) {
+	var filter logic.Role
+	err := copier.Copy(&filter, req)
+	if err != nil {
+		return nil, err
+	}
+	list, total, err := s.r.RoleList(ctx, &filter, int(req.Page.Page), int(req.Page.PageSize))
+	if err != nil {
+		return nil, err
+	}
+	var data []*admin.RoleListReplyItem
+	for _, e := range list {
+		data = append(data, &admin.RoleListReplyItem{
+			Id:        e.Id,
+			Name:      e.Name,
+			Title:     e.Title,
+			Status:    e.Status,
+			CreatedAt: e.CreatedAt.Unix(),
+			UpdatedAt: e.UpdatedAt.Unix(),
+		})
+	}
+	return &admin.RoleListReply{
+		Total: total,
+		Data:  data,
 	}, nil
 }
 
-func (s *AdminServer) RoleList(ctx context.Context, req *admin.UserListReq) (*admin.UserListReply, error) {
-	list, total, err := s.u.UserList(ctx, &logic.User{
-		Username: "",
-		RoleId:   0,
-		Status:   0,
-	}, int(req.Page.Page), int(req.Page.PageSize))
-	if err != nil {
-		return nil, err
-	}
-	var data []*admin.UserListReplyDetail
-	for _, e := range list {
-		data = append(data, &admin.UserListReplyDetail{
-			Id:           e.Id,
-			Username:     e.Username,
-			Avatar:       e.Avatar,
-			Introduction: e.Introduction,
-			RoleId:       e.RoleId,
-			RoleName:     e.RoleName,
-			Status:       e.Status,
-			Department:   e.DepartmentName,
-			DepartmentId: e.DepartmentId,
-		})
-	}
-	return &admin.UserListReply{Total: total, Data: data}, nil
-}
-
-func (s *AdminServer) RoleDelete(ctx context.Context, req *admin.UserDeleteReq) (*admin.UserDeleteReply, error) {
-	isDel, err := s.u.UserDelete(ctx, &logic.User{
-		Id:       req.Id,
-		Username: req.Username,
+func (s *AdminServer) RoleDelete(ctx context.Context, req *admin.RoleDeleteReq) (*admin.RoleDeleteReply, error) {
+	isDel, err := s.r.RoleDelete(ctx, &logic.Role{
+		Id: req.Id,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return &admin.UserDeleteReply{
+	return &admin.RoleDeleteReply{
 		IsOk: isDel,
 	}, nil
 }

@@ -20,7 +20,7 @@ import (
 	"github.com/laoningmeng/go-zero-admin/services/admin/internal/config"
 )
 
-var ProviderSet = wire.NewSet(NewNacosConf, NewDB, NewUserModel, logger2.NewZapLogger)
+var ProviderSet = wire.NewSet(NewNacosConf, NewDB, NewUserModel, NewRoleModel, logger2.NewZapLogger)
 
 type DB struct {
 	db *gorm.DB

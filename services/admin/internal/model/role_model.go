@@ -49,9 +49,9 @@ func (u *RoleModel) FindOne(ctx context.Context, query *logic.Role) (*logic.Role
 	if err != nil {
 		return nil, err
 	}
-	var resp *logic.Role
-	_ = copier.Copy(resp, result)
-	return resp, nil
+	var resp logic.Role
+	_ = copier.Copy(&resp, result)
+	return &resp, nil
 }
 
 func (u *RoleModel) Add(ctx context.Context, role *logic.Role) (int32, error) {
@@ -67,8 +67,8 @@ func (u *RoleModel) Add(ctx context.Context, role *logic.Role) (int32, error) {
 	err = copier.Copy(&data, role)
 	if err != nil {
 		panic(err)
+		return 0, err
 	}
-
 	err = u.db.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&data).Error; err != nil {
 			return err
@@ -82,12 +82,12 @@ func (u *RoleModel) Add(ctx context.Context, role *logic.Role) (int32, error) {
 }
 
 func (r *RoleModel) Update(ctx context.Context, filter *logic.Role) (bool, error) {
-	role, err := r.FindOne(ctx, filter)
+	_, err := r.FindOne(ctx, &logic.Role{Id: filter.Id})
 	if err != nil {
 		return false, err
 	}
 	err = r.db.Transaction(func(tx *gorm.DB) error {
-		return r.db.Model(&Role{}).Where("id=?", role.Id).Updates(Role{
+		return r.db.Model(&Role{}).Where("id=?", filter.Id).Updates(Role{
 			Title:  filter.Title,
 			Status: filter.Status,
 		}).Error
@@ -112,25 +112,26 @@ func (r *RoleModel) Delete(ctx context.Context, filter *logic.Role) (bool, error
 	return true, nil
 }
 
-func (u *RoleModel) List(ctx context.Context, filter *logic.Role, pageNum, pageSize int) ([]*logic.Role, int64, error) {
-	var userList []User
+func (r *RoleModel) List(ctx context.Context, filter *logic.Role, pageNum, pageSize int) ([]*logic.Role, int32, error) {
+	var roleList []Role
 	var total int64
-	var queryUser User
-	err := copier.Copy(&queryUser, filter)
-	if err != nil {
-		return nil, 0, err
+	var queryRole Role
+	if filter != nil {
+		err := copier.Copy(&queryRole, filter)
+		if err != nil {
+			return nil, 0, err
+		}
 	}
-	u.Query().Where(&queryUser).Preload("Role").Count(&total)
 
+	r.Query().Where(&queryRole).Count(&total)
 	start := (pageNum - 1) * pageSize
-
-	err = u.Query().Where(&queryUser).Limit(pageSize).Offset(start).Find(&userList).Error
+	err := r.Query().Where(&queryRole).Limit(pageSize).Offset(start).Find(&roleList).Error
 
 	if err != nil {
 		return nil, 0, err
 	}
 	var result []*logic.Role
-	for _, e := range userList {
+	for _, e := range roleList {
 		var item logic.Role
 		err := copier.Copy(&item, e)
 		if err != nil {
@@ -138,5 +139,5 @@ func (u *RoleModel) List(ctx context.Context, filter *logic.Role, pageNum, pageS
 		}
 		result = append(result, &item)
 	}
-	return nil, 0, nil
+	return result, int32(total), nil
 }

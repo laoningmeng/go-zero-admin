@@ -11,13 +11,13 @@ import (
 
 func ListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.UserListReq
+		var req types.RoleListReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
 		fmt.Println(r.Context().Value("user_id"))
-		l := logic.NewUserLogic(r.Context(), svcCtx)
+		l := logic.NewRoleLogic(r.Context(), svcCtx)
 		resp, err := l.List(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
