@@ -27,6 +27,13 @@ type (
 		RoleQuery(ctx context.Context, in *admin.RoleQueryReq, opts ...grpc.CallOption) (*admin.RoleQueryReply, error)
 		RoleList(ctx context.Context, in *admin.RoleListReq, opts ...grpc.CallOption) (*admin.RoleListReply, error)
 		RoleDelete(ctx context.Context, in *admin.RoleDeleteReq, opts ...grpc.CallOption) (*admin.RoleDeleteReply, error)
+
+		//权限管理
+		RuleAdd(ctx context.Context, in *admin.RuleAddReq, opts ...grpc.CallOption) (*admin.RuleAddReply, error)
+		RuleUpdate(ctx context.Context, in *admin.RuleUpdateReq, opts ...grpc.CallOption) (*admin.RuleUpdateReply, error)
+		RuleQuery(ctx context.Context, in *admin.RuleQueryReq, opts ...grpc.CallOption) (*admin.RuleQueryReply, error)
+		RuleList(ctx context.Context, in *admin.RuleListReq, opts ...grpc.CallOption) (*admin.RuleListReply, error)
+		RuleDelete(ctx context.Context, in *admin.RuleDeleteReq, opts ...grpc.CallOption) (*admin.RuleDeleteReply, error)
 	}
 
 	defaultAdmin struct {
@@ -98,4 +105,29 @@ func (m *defaultAdmin) RoleList(ctx context.Context, in *admin.RoleListReq, opts
 func (m *defaultAdmin) RoleDelete(ctx context.Context, in *admin.RoleDeleteReq, opts ...grpc.CallOption) (*admin.RoleDeleteReply, error) {
 	client := admin.NewAdminClient(m.cli.Conn())
 	return client.RoleDelete(ctx, in, opts...)
+}
+
+func (m *defaultAdmin) RuleAdd(ctx context.Context, in *admin.RuleAddReq, opts ...grpc.CallOption) (*admin.RuleAddReply, error) {
+	client := admin.NewAdminClient(m.cli.Conn())
+	return client.RuleAdd(ctx, in, opts...)
+}
+
+func (m *defaultAdmin) RuleUpdate(ctx context.Context, in *admin.RuleUpdateReq, opts ...grpc.CallOption) (*admin.RuleUpdateReply, error) {
+	client := admin.NewAdminClient(m.cli.Conn())
+	return client.RuleUpdate(ctx, in, opts...)
+}
+
+func (m *defaultAdmin) RuleQuery(ctx context.Context, in *admin.RuleQueryReq, opts ...grpc.CallOption) (*admin.RuleQueryReply, error) {
+	client := admin.NewAdminClient(m.cli.Conn())
+	return client.RuleQuery(ctx, in, opts...)
+}
+
+func (m *defaultAdmin) RuleList(ctx context.Context, in *admin.RuleListReq, opts ...grpc.CallOption) (*admin.RuleListReply, error) {
+	client := admin.NewAdminClient(m.cli.Conn())
+	return client.RuleList(ctx, in, opts...)
+}
+
+func (m *defaultAdmin) RuleDelete(ctx context.Context, in *admin.RuleDeleteReq, opts ...grpc.CallOption) (*admin.RuleDeleteReply, error) {
+	client := admin.NewAdminClient(m.cli.Conn())
+	return client.RuleDelete(ctx, in, opts...)
 }

@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
+	sync "sync"
 )
 
 const (
@@ -19,22 +20,786 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 新增权限
+type RuleAddReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name  string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Title string `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Type  int32  `protobuf:"varint,3,opt,name=type,proto3" json:"type,omitempty"`
+}
+
+func (x *RuleAddReq) Reset() {
+	*x = RuleAddReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_rule_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RuleAddReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RuleAddReq) ProtoMessage() {}
+
+func (x *RuleAddReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_rule_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RuleAddReq.ProtoReflect.Descriptor instead.
+func (*RuleAddReq) Descriptor() ([]byte, []int) {
+	return file_message_rule_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *RuleAddReq) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *RuleAddReq) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *RuleAddReq) GetType() int32 {
+	if x != nil {
+		return x.Type
+	}
+	return 0
+}
+
+type RuleAddReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *RuleAddReply) Reset() {
+	*x = RuleAddReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_rule_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RuleAddReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RuleAddReply) ProtoMessage() {}
+
+func (x *RuleAddReply) ProtoReflect() protoreflect.Message {
+	mi := &file_message_rule_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RuleAddReply.ProtoReflect.Descriptor instead.
+func (*RuleAddReply) Descriptor() ([]byte, []int) {
+	return file_message_rule_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *RuleAddReply) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// 角色更新
+type RuleUpdateReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id    int32  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name  string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Title string `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	Type  int32  `protobuf:"varint,4,opt,name=type,proto3" json:"type,omitempty"`
+}
+
+func (x *RuleUpdateReq) Reset() {
+	*x = RuleUpdateReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_rule_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RuleUpdateReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RuleUpdateReq) ProtoMessage() {}
+
+func (x *RuleUpdateReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_rule_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RuleUpdateReq.ProtoReflect.Descriptor instead.
+func (*RuleUpdateReq) Descriptor() ([]byte, []int) {
+	return file_message_rule_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *RuleUpdateReq) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *RuleUpdateReq) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *RuleUpdateReq) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *RuleUpdateReq) GetType() int32 {
+	if x != nil {
+		return x.Type
+	}
+	return 0
+}
+
+type RuleUpdateReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	IsOk bool `protobuf:"varint,1,opt,name=isOk,proto3" json:"isOk,omitempty"`
+}
+
+func (x *RuleUpdateReply) Reset() {
+	*x = RuleUpdateReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_rule_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RuleUpdateReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RuleUpdateReply) ProtoMessage() {}
+
+func (x *RuleUpdateReply) ProtoReflect() protoreflect.Message {
+	mi := &file_message_rule_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RuleUpdateReply.ProtoReflect.Descriptor instead.
+func (*RuleUpdateReply) Descriptor() ([]byte, []int) {
+	return file_message_rule_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *RuleUpdateReply) GetIsOk() bool {
+	if x != nil {
+		return x.IsOk
+	}
+	return false
+}
+
+// 根据id/username 查询角色
+type RuleQueryReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id    int32  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name  string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Title string `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	Type  int32  `protobuf:"varint,4,opt,name=type,proto3" json:"type,omitempty"`
+}
+
+func (x *RuleQueryReq) Reset() {
+	*x = RuleQueryReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_rule_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RuleQueryReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RuleQueryReq) ProtoMessage() {}
+
+func (x *RuleQueryReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_rule_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RuleQueryReq.ProtoReflect.Descriptor instead.
+func (*RuleQueryReq) Descriptor() ([]byte, []int) {
+	return file_message_rule_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *RuleQueryReq) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *RuleQueryReq) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *RuleQueryReq) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *RuleQueryReq) GetType() int32 {
+	if x != nil {
+		return x.Type
+	}
+	return 0
+}
+
+type RuleQueryReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id    int32  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name  string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Title string `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	Type  int32  `protobuf:"varint,4,opt,name=type,proto3" json:"type,omitempty"`
+}
+
+func (x *RuleQueryReply) Reset() {
+	*x = RuleQueryReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_rule_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RuleQueryReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RuleQueryReply) ProtoMessage() {}
+
+func (x *RuleQueryReply) ProtoReflect() protoreflect.Message {
+	mi := &file_message_rule_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RuleQueryReply.ProtoReflect.Descriptor instead.
+func (*RuleQueryReply) Descriptor() ([]byte, []int) {
+	return file_message_rule_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *RuleQueryReply) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *RuleQueryReply) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *RuleQueryReply) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *RuleQueryReply) GetType() int32 {
+	if x != nil {
+		return x.Type
+	}
+	return 0
+}
+
+// 删除用户
+type RuleDeleteReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *RuleDeleteReq) Reset() {
+	*x = RuleDeleteReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_rule_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RuleDeleteReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RuleDeleteReq) ProtoMessage() {}
+
+func (x *RuleDeleteReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_rule_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RuleDeleteReq.ProtoReflect.Descriptor instead.
+func (*RuleDeleteReq) Descriptor() ([]byte, []int) {
+	return file_message_rule_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *RuleDeleteReq) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type RuleDeleteReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	IsOk bool `protobuf:"varint,1,opt,name=isOk,proto3" json:"isOk,omitempty"`
+}
+
+func (x *RuleDeleteReply) Reset() {
+	*x = RuleDeleteReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_rule_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RuleDeleteReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RuleDeleteReply) ProtoMessage() {}
+
+func (x *RuleDeleteReply) ProtoReflect() protoreflect.Message {
+	mi := &file_message_rule_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RuleDeleteReply.ProtoReflect.Descriptor instead.
+func (*RuleDeleteReply) Descriptor() ([]byte, []int) {
+	return file_message_rule_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *RuleDeleteReply) GetIsOk() bool {
+	if x != nil {
+		return x.IsOk
+	}
+	return false
+}
+
+// 获取人员列表
+type RuleListReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name  string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Type  int32  `protobuf:"varint,2,opt,name=type,proto3" json:"type,omitempty"`
+	Title string `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	Page  *Page  `protobuf:"bytes,4,opt,name=page,proto3" json:"page,omitempty"`
+}
+
+func (x *RuleListReq) Reset() {
+	*x = RuleListReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_rule_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RuleListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RuleListReq) ProtoMessage() {}
+
+func (x *RuleListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_rule_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RuleListReq.ProtoReflect.Descriptor instead.
+func (*RuleListReq) Descriptor() ([]byte, []int) {
+	return file_message_rule_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *RuleListReq) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *RuleListReq) GetType() int32 {
+	if x != nil {
+		return x.Type
+	}
+	return 0
+}
+
+func (x *RuleListReq) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *RuleListReq) GetPage() *Page {
+	if x != nil {
+		return x.Page
+	}
+	return nil
+}
+
+type RuleListReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Total int32                `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
+	Data  []*RuleListReplyItem `protobuf:"bytes,2,rep,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *RuleListReply) Reset() {
+	*x = RuleListReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_rule_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RuleListReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RuleListReply) ProtoMessage() {}
+
+func (x *RuleListReply) ProtoReflect() protoreflect.Message {
+	mi := &file_message_rule_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RuleListReply.ProtoReflect.Descriptor instead.
+func (*RuleListReply) Descriptor() ([]byte, []int) {
+	return file_message_rule_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *RuleListReply) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *RuleListReply) GetData() []*RuleListReplyItem {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type RuleListReplyItem struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id        int32  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name      string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Title     string `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	Type      int32  `protobuf:"varint,4,opt,name=type,proto3" json:"type,omitempty"`
+	CreatedAt int64  `protobuf:"varint,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt int64  `protobuf:"varint,6,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+}
+
+func (x *RuleListReplyItem) Reset() {
+	*x = RuleListReplyItem{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_rule_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RuleListReplyItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RuleListReplyItem) ProtoMessage() {}
+
+func (x *RuleListReplyItem) ProtoReflect() protoreflect.Message {
+	mi := &file_message_rule_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RuleListReplyItem.ProtoReflect.Descriptor instead.
+func (*RuleListReplyItem) Descriptor() ([]byte, []int) {
+	return file_message_rule_proto_rawDescGZIP(), []int{9, 0}
+}
+
+func (x *RuleListReplyItem) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *RuleListReplyItem) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *RuleListReplyItem) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *RuleListReplyItem) GetType() int32 {
+	if x != nil {
+		return x.Type
+	}
+	return 0
+}
+
+func (x *RuleListReplyItem) GetCreatedAt() int64 {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return 0
+}
+
+func (x *RuleListReplyItem) GetUpdatedAt() int64 {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return 0
+}
+
 var File_message_rule_proto protoreflect.FileDescriptor
 
 var file_message_rule_proto_rawDesc = []byte{
 	0x0a, 0x12, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2f, 0x72, 0x75, 0x6c, 0x65, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x12, 0x08, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x73, 0x42, 0x09,
-	0x5a, 0x07, 0x2e, 0x2f, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x72, 0x6f, 0x74, 0x6f, 0x12, 0x08, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x73, 0x1a, 0x14,
+	0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x22, 0x4a, 0x0a, 0x0a, 0x52, 0x75, 0x6c, 0x65, 0x41, 0x64, 0x64, 0x52,
+	0x65, 0x71, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x12, 0x0a, 0x04,
+	0x74, 0x79, 0x70, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65,
+	0x22, 0x1e, 0x0a, 0x0c, 0x52, 0x75, 0x6c, 0x65, 0x41, 0x64, 0x64, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64,
+	0x22, 0x5d, 0x0a, 0x0d, 0x52, 0x75, 0x6c, 0x65, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65,
+	0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69,
+	0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x74,
+	0x79, 0x70, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x22,
+	0x25, 0x0a, 0x0f, 0x52, 0x75, 0x6c, 0x65, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x70,
+	0x6c, 0x79, 0x12, 0x12, 0x0a, 0x04, 0x69, 0x73, 0x4f, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08,
+	0x52, 0x04, 0x69, 0x73, 0x4f, 0x6b, 0x22, 0x5c, 0x0a, 0x0c, 0x52, 0x75, 0x6c, 0x65, 0x51, 0x75,
+	0x65, 0x72, 0x79, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69,
+	0x74, 0x6c, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65,
+	0x12, 0x12, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04,
+	0x74, 0x79, 0x70, 0x65, 0x22, 0x5e, 0x0a, 0x0e, 0x52, 0x75, 0x6c, 0x65, 0x51, 0x75, 0x65, 0x72,
+	0x79, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69,
+	0x74, 0x6c, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65,
+	0x12, 0x12, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04,
+	0x74, 0x79, 0x70, 0x65, 0x22, 0x1f, 0x0a, 0x0d, 0x52, 0x75, 0x6c, 0x65, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x02, 0x69, 0x64, 0x22, 0x25, 0x0a, 0x0f, 0x52, 0x75, 0x6c, 0x65, 0x44, 0x65, 0x6c,
+	0x65, 0x74, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x12, 0x0a, 0x04, 0x69, 0x73, 0x4f, 0x6b,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x04, 0x69, 0x73, 0x4f, 0x6b, 0x22, 0x6f, 0x0a, 0x0b,
+	0x52, 0x75, 0x6c, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x12, 0x12, 0x0a, 0x04, 0x6e,
+	0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12,
+	0x12, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x74,
+	0x79, 0x70, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x22, 0x0a, 0x04, 0x70, 0x61, 0x67,
+	0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67,
+	0x65, 0x73, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x52, 0x04, 0x70, 0x61, 0x67, 0x65, 0x22, 0xec, 0x01,
+	0x0a, 0x0d, 0x52, 0x75, 0x6c, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12,
+	0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05,
+	0x74, 0x6f, 0x74, 0x61, 0x6c, 0x12, 0x30, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20,
+	0x03, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x73, 0x2e, 0x52,
+	0x75, 0x6c, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x2e, 0x69, 0x74, 0x65,
+	0x6d, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x1a, 0x92, 0x01, 0x0a, 0x04, 0x69, 0x74, 0x65, 0x6d,
+	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64,
+	0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
+	0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x79,
+	0x70, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x12, 0x1d,
+	0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x05, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12, 0x1d, 0x0a,
+	0x0a, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x06, 0x20, 0x01, 0x28,
+	0x03, 0x52, 0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x42, 0x09, 0x5a, 0x07,
+	0x2e, 0x2f, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
-var file_message_rule_proto_goTypes = []interface{}{}
+var (
+	file_message_rule_proto_rawDescOnce sync.Once
+	file_message_rule_proto_rawDescData = file_message_rule_proto_rawDesc
+)
+
+func file_message_rule_proto_rawDescGZIP() []byte {
+	file_message_rule_proto_rawDescOnce.Do(func() {
+		file_message_rule_proto_rawDescData = protoimpl.X.CompressGZIP(file_message_rule_proto_rawDescData)
+	})
+	return file_message_rule_proto_rawDescData
+}
+
+var file_message_rule_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_message_rule_proto_goTypes = []interface{}{
+	(*RuleAddReq)(nil),        // 0: messages.RuleAddReq
+	(*RuleAddReply)(nil),      // 1: messages.RuleAddReply
+	(*RuleUpdateReq)(nil),     // 2: messages.RuleUpdateReq
+	(*RuleUpdateReply)(nil),   // 3: messages.RuleUpdateReply
+	(*RuleQueryReq)(nil),      // 4: messages.RuleQueryReq
+	(*RuleQueryReply)(nil),    // 5: messages.RuleQueryReply
+	(*RuleDeleteReq)(nil),     // 6: messages.RuleDeleteReq
+	(*RuleDeleteReply)(nil),   // 7: messages.RuleDeleteReply
+	(*RuleListReq)(nil),       // 8: messages.RuleListReq
+	(*RuleListReply)(nil),     // 9: messages.RuleListReply
+	(*RuleListReplyItem)(nil), // 10: messages.RuleListReply.item
+	(*Page)(nil),              // 11: messages.Page
+}
 var file_message_rule_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	11, // 0: messages.RuleListReq.page:type_name -> messages.Page
+	10, // 1: messages.RuleListReply.data:type_name -> messages.RuleListReply.item
+	2,  // [2:2] is the sub-list for method output_type
+	2,  // [2:2] is the sub-list for method input_type
+	2,  // [2:2] is the sub-list for extension type_name
+	2,  // [2:2] is the sub-list for extension extendee
+	0,  // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_message_rule_proto_init() }
@@ -42,18 +807,154 @@ func file_message_rule_proto_init() {
 	if File_message_rule_proto != nil {
 		return
 	}
+	file_message_common_proto_init()
+	if !protoimpl.UnsafeEnabled {
+		file_message_rule_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RuleAddReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_rule_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RuleAddReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_rule_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RuleUpdateReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_rule_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RuleUpdateReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_rule_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RuleQueryReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_rule_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RuleQueryReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_rule_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RuleDeleteReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_rule_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RuleDeleteReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_rule_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RuleListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_rule_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RuleListReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_rule_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RuleListReplyItem); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_message_rule_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   0,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_message_rule_proto_goTypes,
 		DependencyIndexes: file_message_rule_proto_depIdxs,
+		MessageInfos:      file_message_rule_proto_msgTypes,
 	}.Build()
 	File_message_rule_proto = out.File
 	file_message_rule_proto_rawDesc = nil

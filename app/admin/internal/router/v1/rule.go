@@ -1,7 +1,7 @@
 package v1
 
 import (
-	"github.com/laoningmeng/go-zero-admin/app/admin/internal/handler/user"
+	"github.com/laoningmeng/go-zero-admin/app/admin/internal/handler/rule"
 	"github.com/laoningmeng/go-zero-admin/app/admin/internal/middleware"
 	"github.com/laoningmeng/go-zero-admin/app/admin/internal/svc"
 	"github.com/zeromicro/go-zero/rest"
@@ -20,22 +20,22 @@ func accessRuleWithToken(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/add",
-					Handler: user.AddHandler(serverCtx),
+					Handler: rule.AddHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: user.ListHandler(serverCtx),
+					Handler: rule.ListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/del",
-					Handler: user.DelHandler(serverCtx),
+					Handler: rule.DelHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/update",
-					Handler: user.UpdateHandler(serverCtx),
+					Handler: rule.UpdateHandler(serverCtx),
 				},
 			}...,
 		),

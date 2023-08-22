@@ -1,3 +1,73 @@
 syntax = "proto3";
 package messages;
 option go_package="./admin";
+import "message/common.proto";
+
+
+// 新增权限
+message RuleAddReq {
+  string name = 1;
+  string title = 2;
+  int32 type = 3;
+}
+message RuleAddReply{
+  int32 id = 1;
+}
+
+
+// 角色更新
+message RuleUpdateReq{
+  int32 id = 1;
+  string name = 2;
+  string title = 3;
+  int32 type = 4;
+}
+
+message RuleUpdateReply{
+  bool isOk = 1;
+}
+
+
+// 根据id/username 查询角色
+message RuleQueryReq{
+  int32 id = 1;
+  string name = 2;
+  string title = 3;
+  int32 type = 4;
+}
+message RuleQueryReply{
+  int32 id = 1;
+  string name = 2;
+  string title = 3;
+  int32 type = 4;
+}
+
+
+// 删除用户
+message RuleDeleteReq{
+  int32 id = 1;
+}
+
+message RuleDeleteReply{
+  bool isOk = 1;
+}
+
+//获取人员列表
+message RuleListReq{
+  string name = 1;
+  int32 type = 2;
+  string title = 3;
+  messages.Page page = 4;
+}
+message RuleListReply{
+  message item{
+    int32 id = 1;
+    string name = 2;
+    string title = 3;
+    int32 type = 4;
+    int64 created_at = 5;
+    int64 updated_at = 6;
+  }
+  int32 total = 1;
+  repeated item data = 2;
+}

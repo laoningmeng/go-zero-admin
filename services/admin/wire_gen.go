@@ -30,7 +30,9 @@ func zeroApp(c config.Config, ctx *svc.ServiceContext) *zrpc.RpcServer {
 	userLogic := logic.NewUserLogic(userRepo, loggerLogger)
 	roleRepo := model.NewRoleModel(db, loggerLogger)
 	roleLogic := logic.NewRoleLogic(roleRepo, loggerLogger)
-	adminServer := server.NewAdminServer(ctx, userLogic, roleLogic)
+	ruleRepo := model.NewRuleModel(db, loggerLogger)
+	ruleLogic := logic.NewRuleLogic(ruleRepo, loggerLogger)
+	adminServer := server.NewAdminServer(ctx, userLogic, roleLogic, ruleLogic)
 	rpcServer := newRpcServer(c, adminServer)
 	return rpcServer
 }

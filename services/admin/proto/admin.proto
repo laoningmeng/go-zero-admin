@@ -5,6 +5,7 @@ package admin;
 import "message/login.proto";
 import "message/user.proto";
 import "message/role.proto";
+import "message/rule.proto";
 option go_package="./admin";
 
 
@@ -28,12 +29,11 @@ service Admin {
 
 
   // 权限管理模块
-
-//  rpc RuleAdd(messages.UserAddReq)returns(messages.UserAddReply);
-//  rpc RuleUpdate(messages.UserUpdateReq)returns(messages.UserUpdateReply);
-//  rpc RuleQuery(messages.UserQueryReq)returns(messages.UserQueryReply);
-//  rpc RuleList(messages.UserListReq)returns(messages.UserListReply);
-//  rpc RuleDelete(messages.UserDeleteReq)returns(messages.UserDeleteReply);
+  rpc RuleAdd(messages.RuleAddReq)returns(messages.RuleAddReply);
+  rpc RuleUpdate(messages.RuleUpdateReq)returns(messages.RuleUpdateReply);
+  rpc RuleQuery(messages.RuleQueryReq)returns(messages.RuleQueryReply);
+  rpc RuleList(messages.RuleListReq)returns(messages.RuleListReply);
+  rpc RuleDelete(messages.RuleDeleteReq)returns(messages.RuleDeleteReply);
 }
 
 
