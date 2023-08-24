@@ -4,9 +4,12 @@ import (
 	"flag"
 	"fmt"
 	"github.com/laoningmeng/go-zero-admin/app/admin/internal/router"
+	"github.com/zeromicro/zero-contrib/zrpc/registry/consul"
+	"strconv"
 
 	"github.com/laoningmeng/go-zero-admin/app/admin/internal/config"
 	"github.com/laoningmeng/go-zero-admin/app/admin/internal/svc"
+	_ "github.com/zeromicro/zero-contrib/zrpc/registry/consul"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
@@ -25,6 +28,7 @@ func main() {
 
 	ctx := svc.NewServiceContext(c)
 	router.RegisterRouters(server, ctx)
+	_ = consul.RegisterService(c.Host+":"+strconv.Itoa(c.Port), c.Consul)
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
 	server.Start()

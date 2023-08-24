@@ -8,14 +8,14 @@ Timeout: 30000
 
 Consul:
   Host: 127.0.0.1:8500
-  Token: 5b1496a6-e661-8286-de99-c46378d2f55b # consul ACL token (optional)
+  Token: 44268228-01df-835c-cb10-6114b94465ee # consul ACL token (optional)
   Key: admin.rpc
   Meta:
     Protocol: grpc
 Nacos:
   Host: 127.0.0.1
   Port: 8848
-  NamespaceId: 826edefe-aa23-469b-a0c7-91ed711cd6fe
+  NamespaceId: 08961195-9fcb-44f0-b914-19e7481ced80
   DataId: admin
   Group: dev
   Username: nacos

@@ -3,6 +3,11 @@ Host: 0.0.0.0
 Port: 8888
 Timeout: 30000
 
+Consul:
+  Host: 127.0.0.1:8500
+  Token: 44268228-01df-835c-cb10-6114b94465ee # consul ACL token (optional)
+  Key: adminApi
+
 Prometheus:
   Host: 0.0.0.0
   Port: 9003
@@ -13,12 +18,7 @@ Telemetry:
   Sampler: 1.0
   Batcher: jaeger
 AdminConf:
-  Endpoints:
-    - 127.0.0.1:8081
-  NonBlock: true
-
-#  Target: consul://127.0.0.1:8500/admin.rpc?wait=14s&token=5b1496a6-e661-8286-de99-c46378d2f55b
-
+  Target: consul://127.0.0.1:8500/admin.rpc?wait=14s&token=44268228-01df-835c-cb10-6114b94465ee
 JwtAuth:
   AccessSecret: aaadsfhsdkhfsd
   AccessExpire: 30000

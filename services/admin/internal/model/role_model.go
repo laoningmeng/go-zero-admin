@@ -18,6 +18,7 @@ type Role struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt *time.Time
+	Rules     []Rule `gorm:"many2many:role_rule;"`
 }
 
 type RoleModel struct {
@@ -45,7 +46,7 @@ func (u *RoleModel) FindOne(ctx context.Context, query *logic.Role) (*logic.Role
 	err := u.Query().Where(&Role{
 		Id:   query.Id,
 		Name: query.Name,
-	}).First(&result).Error
+	}).Preload("Rules").First(&result).Error
 	if err != nil {
 		return nil, err
 	}
@@ -125,7 +126,7 @@ func (r *RoleModel) List(ctx context.Context, filter *logic.Role, pageNum, pageS
 
 	r.Query().Where(&queryRole).Count(&total)
 	start := (pageNum - 1) * pageSize
-	err := r.Query().Where(&queryRole).Limit(pageSize).Offset(start).Find(&roleList).Error
+	err := r.Query().Where(&queryRole).Preload("Rules").Limit(pageSize).Offset(start).Find(&roleList).Error
 
 	if err != nil {
 		return nil, 0, err

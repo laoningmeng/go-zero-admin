@@ -1,5 +1,5 @@
 .idea
 *.log
-./nacos
+./nacos/*
 services/admin/test/*
 services/ad
