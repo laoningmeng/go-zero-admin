@@ -24,7 +24,7 @@ import (
 
 func zeroApp(c config.Config, ctx *svc.ServiceContext) *zrpc.RpcServer {
 	nacosConf := model.NewNacosConf(c)
-	db := model.NewDB(nacosConf)
+	db := model.NewDB(nacosConf, ctx)
 	loggerLogger := logger.NewZapLogger()
 	userRepo := model.NewUserModel(db, loggerLogger)
 	userLogic := logic.NewUserLogic(userRepo, loggerLogger)
