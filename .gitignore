@@ -2,4 +2,5 @@
 *.log
 ./nacos/*
 services/admin/test/*
+ services/admin/nacos/
 services/ad

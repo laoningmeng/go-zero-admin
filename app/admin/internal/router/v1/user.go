@@ -50,10 +50,10 @@ func accessUserWithToken(server *rest.Server, serverCtx *svc.ServiceContext) {
 func whiteUserList(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		rest.WithMiddlewares(
-			middleware.RegisterMiddlewares(),
+			middleware.RegisterCommonMiddleware(),
 			[]rest.Route{
 				{
-					Method:  http.MethodPost,
+					Method:  http.MethodGet,
 					Path:    "/login",
 					Handler: handler.LoginHandler(serverCtx),
 				},
