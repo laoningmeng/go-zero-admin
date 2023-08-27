@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"github.com/jinzhu/copier"
 	"github.com/laoningmeng/go-zero-admin/services/admin/admin"
 	"github.com/laoningmeng/go-zero-admin/services/admin/internal/logic"
 )
@@ -67,24 +68,15 @@ func (s *AdminServer) UserUpdate(ctx context.Context, req *admin.UserUpdateReq) 
 }
 
 func (s *AdminServer) UserQuery(ctx context.Context, req *admin.UserQueryReq) (*admin.UserQueryReply, error) {
-	user, err := s.u.UserQuery(ctx, &logic.User{
-		Id:       0,
-		Username: "",
-	})
+	var lu logic.User
+	_ = copier.Copy(&lu, req)
+	user, err := s.u.UserQuery(ctx, &lu)
 	if err != nil {
 		return nil, err
 	}
-	return &admin.UserQueryReply{
-		Id:             user.Id,
-		Username:       user.Username,
-		Avatar:         user.Avatar,
-		Introduction:   user.Introduction,
-		RoleId:         user.RoleId,
-		RoleName:       user.RoleName,
-		Status:         user.Status,
-		DepartmentName: user.DepartmentName,
-		DepartmentId:   user.DepartmentId,
-	}, nil
+	var reply admin.UserQueryReply
+	_ = copier.Copy(&reply, user)
+	return &reply, nil
 }
 
 func (s *AdminServer) UserList(ctx context.Context, req *admin.UserListReq) (*admin.UserListReply, error) {

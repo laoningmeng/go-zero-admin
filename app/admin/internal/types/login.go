@@ -10,3 +10,8 @@ type LoginResp struct {
 	Message string `json:"message"`
 	Token   string `json:"token"`
 }
+
+type LogoutResp struct {
+	Code    int32  `json:"code"`
+	Message string `json:"message"`
+}

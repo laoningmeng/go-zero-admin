@@ -44,7 +44,7 @@ func (u *UserModel) TableName() string {
 }
 
 func (u *UserModel) Query() *gorm.DB {
-	return u.db.Table(u.TableName()).Where(map[string]interface{}{"deleted_at": nil})
+	return u.db.Debug().Table(u.TableName()).Where(map[string]interface{}{"deleted_at": nil})
 }
 
 func (u *UserModel) FindOne(ctx context.Context, query *logic.User) (*logic.User, error) {

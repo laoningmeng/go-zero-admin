@@ -12,18 +12,19 @@ type UserAddResp struct {
 }
 
 type UserListReq struct {
-	Page         int32  `json:"page"`
-	PageSize     int32  `json:"page_size"`
-	Username     string `json:"username,optional"`
-	RoleId       int32  `json:"role_id,optional"`
-	DepartmentId int32  `json:"department_id,optional"`
-	Status       int32  `json:"status,optional"`
+	Page         int32  `form:"page"`
+	PageSize     int32  `form:"page_size"`
+	Username     string `form:"username,optional"`
+	RoleId       int32  `form:"role_id,optional"`
+	DepartmentId int32  `form:"department_id,optional"`
+	Status       int32  `form:"status,optional"`
 }
 
 type User struct {
 	Id           int64  `json:"id"`
 	Username     string `json:"username"`
 	RoleName     string `json:"role_name"`
+	Avatar       string `json:"avatar"`
 	RoleId       int32  `json:"role_id"`
 	DepartmentId int32  `json:"department_id"`
 	Department   string `json:"department"`

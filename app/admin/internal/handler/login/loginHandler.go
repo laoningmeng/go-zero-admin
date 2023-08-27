@@ -1,4 +1,4 @@
-package handler
+package login
 
 import (
 	"github.com/laoningmeng/go-zero-admin/app/admin/internal/logic"

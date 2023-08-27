@@ -1,11 +1,11 @@
 package v1
 
 import (
+	"github.com/laoningmeng/go-zero-admin/app/admin/internal/handler/login"
 	"github.com/laoningmeng/go-zero-admin/app/admin/internal/handler/user"
 	"github.com/zeromicro/go-zero/rest"
 	"net/http"
 
-	"github.com/laoningmeng/go-zero-admin/app/admin/internal/handler"
 	"github.com/laoningmeng/go-zero-admin/app/admin/internal/middleware"
 	"github.com/laoningmeng/go-zero-admin/app/admin/internal/svc"
 )
@@ -58,7 +58,12 @@ func whiteUserList(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodPost,
 				Path:    "/login",
-				Handler: handler.LoginHandler(serverCtx),
+				Handler: login.LoginHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/logout",
+				Handler: login.LogoutHandler(serverCtx),
 			},
 		},
 		rest.WithPrefix("/v1"),

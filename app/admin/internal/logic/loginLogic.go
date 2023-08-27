@@ -47,3 +47,19 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		Token:   token,
 	}, nil
 }
+
+func (l *LoginLogic) Logout(token string) (*types.LogoutResp, error) {
+	var userInfo types.User
+	err := encrypt.GetDataFromToken(token, l.svcCtx.Config.JwtAuth.AccessSecret, &userInfo)
+	if err != nil {
+		return nil, err
+	}
+	_, err = l.svcCtx.Rpc.Logout(l.ctx, &admin.LogoutReq{UserId: userInfo.Id})
+	if err != nil {
+		return nil, err
+	}
+	return &types.LogoutResp{
+		Code:    20000,
+		Message: "success",
+	}, nil
+}

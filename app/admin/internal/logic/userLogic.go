@@ -52,7 +52,9 @@ func (u *UserLogic) Info(token string) (*types.UserInfoResp, error) {
 	user, err := u.svcCtx.Rpc.UserQuery(u.ctx, &admin.UserQueryReq{
 		Id: userInfo.Id,
 	})
-
+	if err != nil {
+		return nil, err
+	}
 	roleInfo, err := u.svcCtx.Rpc.RoleQuery(u.ctx, &admin.RoleQueryReq{
 		Id: user.RoleId,
 	})
@@ -60,12 +62,13 @@ func (u *UserLogic) Info(token string) (*types.UserInfoResp, error) {
 		return nil, err
 	}
 	return &types.UserInfoResp{
-		Code:    0,
+		Code:    20000,
 		Message: "success",
 		Data: &types.UserInfo{
 			User: &types.User{
 				Id:           user.Id,
 				Username:     user.Username,
+				Avatar:       user.Avatar,
 				RoleName:     user.RoleName,
 				RoleId:       user.RoleId,
 				DepartmentId: user.DepartmentId,
@@ -103,6 +106,7 @@ func (u *UserLogic) List(req *types.UserListReq) (*types.UserListResp, error) {
 			Id:           e.Id,
 			Username:     e.Username,
 			RoleName:     e.RoleName,
+			Avatar:       e.Avatar,
 			RoleId:       e.RoleId,
 			DepartmentId: e.DepartmentId,
 			Department:   e.Department,
