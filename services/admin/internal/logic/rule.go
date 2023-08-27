@@ -11,7 +11,7 @@ type Rule struct {
 	Id        int32
 	Name      string // 用户名
 	Title     string // title
-	Type      int32  // 0-待激活1-已入职-2-离职中3-已离职
+	Type      int32  // 1-menu 2-btn
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt *time.Time

@@ -6,6 +6,7 @@ import (
 	"github.com/jinzhu/copier"
 	"github.com/laoningmeng/go-zero-admin/app/admin/internal/svc"
 	"github.com/laoningmeng/go-zero-admin/app/admin/internal/types"
+	"github.com/laoningmeng/go-zero-admin/common/encrypt"
 	"github.com/laoningmeng/go-zero-admin/services/admin/admin"
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -37,6 +38,42 @@ func (u *UserLogic) Add(req *types.UserAddReq) (*types.UserAddResp, error) {
 	return &types.UserAddResp{
 		Code:    0,
 		Message: "success",
+	}, nil
+}
+
+func (u *UserLogic) Info(token string) (*types.UserInfoResp, error) {
+	// header
+	var userInfo types.User
+	err := encrypt.GetDataFromToken(token, u.svcCtx.Config.JwtAuth.AccessSecret, &userInfo)
+	if err != nil {
+		return nil, err
+	}
+
+	user, err := u.svcCtx.Rpc.UserQuery(u.ctx, &admin.UserQueryReq{
+		Id: userInfo.Id,
+	})
+
+	roleInfo, err := u.svcCtx.Rpc.RoleQuery(u.ctx, &admin.RoleQueryReq{
+		Id: user.RoleId,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &types.UserInfoResp{
+		Code:    0,
+		Message: "success",
+		Data: &types.UserInfo{
+			User: &types.User{
+				Id:           user.Id,
+				Username:     user.Username,
+				RoleName:     user.RoleName,
+				RoleId:       user.RoleId,
+				DepartmentId: user.DepartmentId,
+				Department:   user.DepartmentName,
+			},
+			Menu: roleInfo.Menus,
+			Btn:  roleInfo.Btns,
+		},
 	}, nil
 }
 

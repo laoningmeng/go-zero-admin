@@ -52,6 +52,17 @@ func (u *RoleModel) FindOne(ctx context.Context, query *logic.Role) (*logic.Role
 	}
 	var resp logic.Role
 	_ = copier.Copy(&resp, result)
+	var menus []string
+	var btns []string
+	for _, e := range result.Rules {
+		if e.Type == 1 {
+			menus = append(menus, e.Name)
+		} else if e.Type == 2 {
+			btns = append(btns, e.Name)
+		}
+	}
+	resp.Menus = menus
+	resp.Btns = btns
 	return &resp, nil
 }
 

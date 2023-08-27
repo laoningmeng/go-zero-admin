@@ -31,6 +31,11 @@ func accessUserWithToken(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Handler: user.ListHandler(serverCtx),
 				},
 				{
+					Method:  http.MethodGet,
+					Path:    "/info",
+					Handler: user.UserInfoHandler(serverCtx),
+				},
+				{
 					Method:  http.MethodPost,
 					Path:    "/del",
 					Handler: user.DelHandler(serverCtx),
@@ -49,16 +54,13 @@ func accessUserWithToken(server *rest.Server, serverCtx *svc.ServiceContext) {
 
 func whiteUserList(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
-		rest.WithMiddlewares(
-			middleware.RegisterCommonMiddleware(),
-			[]rest.Route{
-				{
-					Method:  http.MethodGet,
-					Path:    "/login",
-					Handler: handler.LoginHandler(serverCtx),
-				},
-			}...,
-		),
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/login",
+				Handler: handler.LoginHandler(serverCtx),
+			},
+		},
 		rest.WithPrefix("/v1"),
 	)
 }

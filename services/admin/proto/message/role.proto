@@ -41,6 +41,8 @@ message RoleQueryReply{
   string name = 2;
   string title = 3;
   int32 status = 4;
+  repeated string menus = 5;
+  repeated string btns = 6;
 }
 
 

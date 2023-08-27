@@ -57,6 +57,7 @@ type AdminClient interface {
 	RoleQuery(ctx context.Context, in *RoleQueryReq, opts ...grpc.CallOption) (*RoleQueryReply, error)
 	RoleList(ctx context.Context, in *RoleListReq, opts ...grpc.CallOption) (*RoleListReply, error)
 	RoleDelete(ctx context.Context, in *RoleDeleteReq, opts ...grpc.CallOption) (*RoleDeleteReply, error)
+	// 权限管理模块
 	RuleAdd(ctx context.Context, in *RuleAddReq, opts ...grpc.CallOption) (*RuleAddReply, error)
 	RuleUpdate(ctx context.Context, in *RuleUpdateReq, opts ...grpc.CallOption) (*RuleUpdateReply, error)
 	RuleQuery(ctx context.Context, in *RuleQueryReq, opts ...grpc.CallOption) (*RuleQueryReply, error)
@@ -244,6 +245,7 @@ type AdminServer interface {
 	RoleQuery(context.Context, *RoleQueryReq) (*RoleQueryReply, error)
 	RoleList(context.Context, *RoleListReq) (*RoleListReply, error)
 	RoleDelete(context.Context, *RoleDeleteReq) (*RoleDeleteReply, error)
+	// 权限管理模块
 	RuleAdd(context.Context, *RuleAddReq) (*RuleAddReply, error)
 	RuleUpdate(context.Context, *RuleUpdateReq) (*RuleUpdateReply, error)
 	RuleQuery(context.Context, *RuleQueryReq) (*RuleQueryReply, error)

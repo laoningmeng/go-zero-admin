@@ -54,3 +54,15 @@ type UserUpdateResp struct {
 	Code    int32  `json:"code"`
 	Message string `json:"message"`
 }
+
+type UserInfo struct {
+	User *User    `json:"user"`
+	Menu []string `json:"menu"`
+	Btn  []string `json:"btn"`
+}
+
+type UserInfoResp struct {
+	Code    int32     `json:"code"`
+	Message string    `json:"message"`
+	Data    *UserInfo `json:"data"`
+}

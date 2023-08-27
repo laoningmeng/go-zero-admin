@@ -12,6 +12,8 @@ type Role struct {
 	Name      string // 用户名
 	Title     string // title
 	Status    int32  // 0-待激活1-已入职-2-离职中3-已离职
+	Menus     []string
+	Btns      []string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt *time.Time

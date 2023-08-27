@@ -57,6 +57,11 @@ Policies:
 
 ```
 
+kong集成consul，用consul替代upstream, 通过配置konga配置连接时，地址应写成`http://kong:8001` 
+
+还有一点，就是注册服务的时候避免使用`.` ,kong dsn 解析的时候会报错，比如`adminApi.service.consul` 使用注册中心时Port 记得改成`80` 
+
+
 如果产生新的依赖关系,需要重新生成wire_gen
 ```shell
 make wire
