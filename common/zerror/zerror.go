@@ -5,6 +5,7 @@ import "fmt"
 type ZError struct {
 	code uint32
 	msg  string
+	err  error
 }
 
 func (e *ZError) Error() string {

@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/laoningmeng/go-zero-admin/app/admin/internal/router"
-	"github.com/zeromicro/go-zero/core/stat"
+	"github.com/zeromicro/go-zero/core/logc"
 	"github.com/zeromicro/zero-contrib/zrpc/registry/consul"
 	"strconv"
 
@@ -23,7 +23,10 @@ func main() {
 
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
-	stat.DisableLog()
+	err := logc.Close()
+	if err != nil {
+		return
+	}
 
 	server := rest.MustNewServer(c.RestConf, rest.WithCustomCors(nil, nil))
 	defer server.Stop()

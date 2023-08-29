@@ -11,9 +11,14 @@ func TestGetLineAuthor(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	filenamem := "git.go"
-	full := path + "/" + filenamem
+	filenamem := "logger.go"
+	full := path + "/../logger/" + filenamem
 	fmt.Println(full)
-	author, err := GetLineAuthor(full, 16)
-	fmt.Println(author, err)
+	author, _ := GetLineAuthor(full, 16)
+	fmt.Println("auther:", author)
+}
+
+func TestOjbk(t *testing.T) {
+	//today := time.Now().Format("2006-01-02")
+	fmt.Printf("\u001B[31m remove :%d \u001B[34;1m add:%d \u001B[0m", 10, 20)
 }

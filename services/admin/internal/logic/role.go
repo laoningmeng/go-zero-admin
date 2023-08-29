@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 	"github.com/laoningmeng/go-zero-admin/common/logger"
+	"github.com/laoningmeng/go-zero-admin/common/trace"
 	"time"
 )
 
@@ -40,20 +41,45 @@ func NewRoleLogic(repo RoleRepo, logger logger.Logger) *RoleLogic {
 	}
 }
 
-func (r *RoleLogic) RoleQuery(ctx context.Context, role *Role) (*Role, error) {
-	return r.data.FindOne(ctx, role)
+func (r *RoleLogic) RoleQuery(ctx context.Context, role *Role) (res *Role, err error) {
+	ctx, span := trace.StartSpan(ctx, "[user-RoleQuery]")
+	defer func() {
+		trace.EndSpan(span, err)
+	}()
+	res, err = r.data.FindOne(ctx, role)
+	return
 }
 
-func (r *RoleLogic) RoleAdd(ctx context.Context, role *Role) (int32, error) {
-	return r.data.Add(ctx, role)
+func (r *RoleLogic) RoleAdd(ctx context.Context, role *Role) (res int32, err error) {
+	ctx, span := trace.StartSpan(ctx, "[user-RoleQuery]")
+	defer func() {
+		trace.EndSpan(span, err)
+	}()
+	res, err = r.data.Add(ctx, role)
+	return
 }
-func (r *RoleLogic) RoleUpdate(ctx context.Context, role *Role) (bool, error) {
-	return r.data.Update(ctx, role)
+func (r *RoleLogic) RoleUpdate(ctx context.Context, role *Role) (res bool, err error) {
+	ctx, span := trace.StartSpan(ctx, "[user-RoleQuery]")
+	defer func() {
+		trace.EndSpan(span, err)
+	}()
+	res, err = r.data.Update(ctx, role)
+	return
 }
 
-func (r *RoleLogic) RoleList(ctx context.Context, filter *Role, pageNum, pageSize int) ([]*Role, int32, error) {
-	return r.data.List(ctx, filter, pageNum, pageSize)
+func (r *RoleLogic) RoleList(ctx context.Context, filter *Role, pageNum, pageSize int) (res []*Role, total int32, err error) {
+	ctx, span := trace.StartSpan(ctx, "[user-RoleQuery]")
+	defer func() {
+		trace.EndSpan(span, err)
+	}()
+	res, total, err = r.data.List(ctx, filter, pageNum, pageSize)
+	return
 }
-func (r *RoleLogic) RoleDelete(ctx context.Context, user *Role) (bool, error) {
-	return r.data.Delete(ctx, user)
+func (r *RoleLogic) RoleDelete(ctx context.Context, user *Role) (res bool, err error) {
+	ctx, span := trace.StartSpan(ctx, "[user-RoleQuery]")
+	defer func() {
+		trace.EndSpan(span, err)
+	}()
+	res, err = r.data.Delete(ctx, user)
+	return
 }

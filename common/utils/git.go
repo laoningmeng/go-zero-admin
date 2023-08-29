@@ -1,26 +1,23 @@
 package utils
 
 import (
+	"errors"
 	"fmt"
 	"os/exec"
-	"strings"
+	"regexp"
 )
 
 func GetLineAuthor(filePath string, lineNumber int) (string, error) {
-	cmd := exec.Command("git", "blame", "-L", fmt.Sprintf("%d,%d", lineNumber, lineNumber), "--porcelain", filePath)
+	cmd := exec.Command("git", "blame", "-L", fmt.Sprintf("%d,%d", lineNumber, lineNumber), filePath)
 	output, err := cmd.Output()
 	if err != nil {
 		return "", err
 	}
-
-	authorLine := strings.TrimSpace(strings.Split(string(output), "\n")[0])
-	a := string(output)
-	fmt.Println(a)
-	parts := strings.SplitN(authorLine, " ", 4)
-	if len(parts) != 2 {
-		return "", fmt.Errorf("无法解析作者行：%s", authorLine)
+	info := string(output)
+	reg, err := regexp.Compile(`\ \(([0-9a-zA-Z]+)\s`)
+	res := reg.FindStringSubmatch(info)
+	if len(res) > 0 {
+		return res[1], nil
 	}
-
-	author := strings.TrimSpace(parts[1])
-	return author, nil
+	return "", errors.New("未找到git信息")
 }
